@@ -1,7 +1,7 @@
 // === GAME STATE ===
 let gameState = {
     board: [],
-    boardSize: 8,
+    boardSize: 9,
     playerMode: 2,
     currentPlayer: 1,
     scores: { 1: 0, 2: 0, 3: 0 },
@@ -116,24 +116,34 @@ function initializeBoard(size, mode) {
         gameState.board[center][center - 1] = 1;      // Black
         gameState.board[center][center] = 2;          // White
     } else {
-        // 3-player setup - hexagonal balanced placement
-        // Each player gets 2 discs in a balanced triangle formation
-        if (size === 6) {
-            // 6x6 board
-            gameState.board[2][2] = 1;  // Black
-            gameState.board[2][3] = 2;  // White
-            gameState.board[3][1] = 3;  // Red
-            gameState.board[3][2] = 2;  // White
-            gameState.board[3][3] = 1;  // Black
-            gameState.board[4][2] = 3;  // Red
+        // 3-player setup - each player gets 3 discs in a radial pattern
+        // This ensures all players have viable starting positions
+        
+        // Center piece rotates between players based on board size
+        const centerPlayer = (size % 3) + 1;
+        
+        // Place discs in a hexagonal/star pattern around center
+        gameState.board[center][center] = centerPlayer;  // Center
+        
+        // Player 1 (Black) - top-left region
+        gameState.board[center - 1][center - 1] = 1;
+        gameState.board[center - 1][center] = 1;
+        gameState.board[center][center - 1] = 1;
+        
+        // Player 2 (White) - top-right region
+        gameState.board[center - 1][center + 1] = 2;
+        gameState.board[center][center + 1] = 2;
+        gameState.board[center + 1][center] = 2;
+        
+        // Player 3 (Red) - bottom region
+        gameState.board[center + 1][center - 1] = 3;
+        gameState.board[center + 1][center + 1] = 3;
+        
+        // Add one more red disc for balance
+        if (size >= 9) {
+            gameState.board[center + 2][center] = 3;
         } else {
-            // 8x8 and larger boards
-            gameState.board[center - 1][center - 1] = 1;  // Black
-            gameState.board[center - 1][center] = 2;      // White
-            gameState.board[center][center - 1] = 3;      // Red
-            gameState.board[center][center] = 1;          // Black
-            gameState.board[center - 1][center + 1] = 3;  // Red
-            gameState.board[center][center + 1] = 2;      // White
+            gameState.board[center + 1][center] = 3;
         }
     }
     
