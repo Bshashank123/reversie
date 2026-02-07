@@ -116,22 +116,24 @@ function initializeBoard(size, mode) {
         gameState.board[center][center - 1] = 1;      // Black
         gameState.board[center][center] = 2;          // White
     } else {
-        // 3-player setup - balanced placement
+        // 3-player setup - hexagonal balanced placement
+        // Each player gets 2 discs in a balanced triangle formation
         if (size === 6) {
+            // 6x6 board
             gameState.board[2][2] = 1;  // Black
             gameState.board[2][3] = 2;  // White
-            gameState.board[3][2] = 3;  // Red
-        } else if (size >= 8) {
+            gameState.board[3][1] = 3;  // Red
+            gameState.board[3][2] = 2;  // White
+            gameState.board[3][3] = 1;  // Black
+            gameState.board[4][2] = 3;  // Red
+        } else {
+            // 8x8 and larger boards
             gameState.board[center - 1][center - 1] = 1;  // Black
             gameState.board[center - 1][center] = 2;      // White
             gameState.board[center][center - 1] = 3;      // Red
             gameState.board[center][center] = 1;          // Black
-        } else {
-            // 10x10, 12x12
-            gameState.board[center - 1][center - 1] = 1;  // Black
-            gameState.board[center - 1][center] = 2;      // White
-            gameState.board[center][center - 1] = 3;      // Red
-            gameState.board[center][center] = 2;          // White
+            gameState.board[center - 1][center + 1] = 3;  // Red
+            gameState.board[center][center + 1] = 2;      // White
         }
     }
     
