@@ -116,12 +116,22 @@ function initializeBoard(size, mode) {
         gameState.board[center][center - 1] = 1;      // Black
         gameState.board[center][center] = 2;          // White
     } else {
-        // 3-player setup - balanced triangle
-        gameState.board[center - 1][center - 1] = 1;  // Black
-        gameState.board[center - 1][center] = 2;      // White
-        gameState.board[center][center - 1] = 3;      // Red
-        if (size >= 8) {
-            gameState.board[center][center] = 1;      // Black
+        // 3-player setup - balanced placement
+        if (size === 6) {
+            gameState.board[2][2] = 1;  // Black
+            gameState.board[2][3] = 2;  // White
+            gameState.board[3][2] = 3;  // Red
+        } else if (size >= 8) {
+            gameState.board[center - 1][center - 1] = 1;  // Black
+            gameState.board[center - 1][center] = 2;      // White
+            gameState.board[center][center - 1] = 3;      // Red
+            gameState.board[center][center] = 1;          // Black
+        } else {
+            // 10x10, 12x12
+            gameState.board[center - 1][center - 1] = 1;  // Black
+            gameState.board[center - 1][center] = 2;      // White
+            gameState.board[center][center - 1] = 3;      // Red
+            gameState.board[center][center] = 2;          // White
         }
     }
     
@@ -132,34 +142,65 @@ function initializeBoard(size, mode) {
 
 // === RENDER BOARD ===
 function renderBoard() {
-    gameBoard.innerHTML = '';
-    gameBoard.style.gridTemplateColumns = `repeat(${gameState.boardSize}, 1fr)`;
+    const currentCells = gameBoard.children;
     
+    // If board size changed or first render, rebuild entire board
+    if (currentCells.length !== gameState.boardSize * gameState.boardSize) {
+        gameBoard.innerHTML = '';
+        gameBoard.style.gridTemplateColumns = `repeat(${gameState.boardSize}, 1fr)`;
+        
+        for (let row = 0; row < gameState.boardSize; row++) {
+            for (let col = 0; col < gameState.boardSize; col++) {
+                const cell = document.createElement('div');
+                cell.className = 'board-cell';
+                cell.dataset.row = row;
+                cell.dataset.col = col;
+                gameBoard.appendChild(cell);
+            }
+        }
+    }
+    
+    // Update each cell
     for (let row = 0; row < gameState.boardSize; row++) {
         for (let col = 0; col < gameState.boardSize; col++) {
-            const cell = document.createElement('div');
-            cell.className = 'board-cell';
-            cell.dataset.row = row;
-            cell.dataset.col = col;
-            
+            const cellIndex = row * gameState.boardSize + col;
+            const cell = gameBoard.children[cellIndex];
             const value = gameState.board[row][col];
-            if (value !== 0) {
-                const disc = document.createElement('div');
-                disc.className = 'disc';
-                
-                if (value === 1) disc.classList.add('disc-black');
-                else if (value === 2) disc.classList.add('disc-white');
-                else if (value === 3) disc.classList.add('disc-red');
-                
-                cell.appendChild(disc);
-            }
             
-            // Highlight valid moves
+            // Clear valid move class
+            cell.classList.remove('valid-move');
+            
+            // Add valid move indicator if applicable
             if (gameState.validMoves.some(move => move.row === row && move.col === col)) {
                 cell.classList.add('valid-move');
             }
             
-            gameBoard.appendChild(cell);
+            // Update disc if needed
+            const existingDisc = cell.querySelector('.disc');
+            
+            if (value === 0) {
+                // Remove disc if present
+                if (existingDisc) {
+                    existingDisc.remove();
+                }
+            } else {
+                // Add or update disc
+                const discClass = value === 1 ? 'disc-black' : value === 2 ? 'disc-white' : 'disc-red';
+                
+                if (existingDisc) {
+                    // Update existing disc if color changed
+                    if (!existingDisc.classList.contains(discClass)) {
+                        existingDisc.className = 'disc ' + discClass;
+                        existingDisc.classList.add('flipping');
+                        setTimeout(() => existingDisc.classList.remove('flipping'), 300);
+                    }
+                } else {
+                    // Create new disc
+                    const disc = document.createElement('div');
+                    disc.className = 'disc ' + discClass;
+                    cell.appendChild(disc);
+                }
+            }
         }
     }
 }
