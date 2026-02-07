@@ -6,18 +6,18 @@
 }
 
 :root {
-    --bg-primary: #1a1a2e;
-    --bg-secondary: #16213e;
-    --bg-accent: #0f3460;
-    --text-primary: #eee;
-    --text-secondary: #bbb;
-    --board-bg: #2d5016;
-    --board-border: #1a3009;
-    --cell-hover: rgba(255, 255, 255, 0.1);
-    --valid-move: rgba(255, 215, 0, 0.4);
-    --disc-black: #1a1a1a;
-    --disc-white: #f5f5f5;
-    --disc-red: #e63946;
+    --bg-primary: #0d1b2a;
+    --bg-secondary: #1b263b;
+    --bg-accent: #415a77;
+    --text-primary: #e0e1dd;
+    --text-secondary: #778da9;
+    --board-bg: #0d7337;
+    --board-border: #085a2a;
+    --cell-hover: rgba(255, 255, 255, 0.05);
+    --valid-move: rgba(100, 200, 100, 0.3);
+    --disc-black: #0d0d0d;
+    --disc-white: #f8f9fa;
+    --disc-red: #dc3545;
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     --transition: all 0.3s ease;
 }
@@ -70,10 +70,7 @@ body {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
 }
 
 .setup-section {
@@ -122,7 +119,7 @@ body {
 }
 
 .radio-label input[type="radio"]:checked + .radio-custom {
-    border-color: #667eea;
+    border-color: #10b981;
 }
 
 .radio-label input[type="radio"]:checked + .radio-custom::after {
@@ -130,7 +127,7 @@ body {
     position: absolute;
     width: 10px;
     height: 10px;
-    background: #667eea;
+    background: #10b981;
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -167,15 +164,15 @@ body {
 }
 
 .size-btn.active {
-    background: #667eea;
-    border-color: #764ba2;
+    background: #059669;
+    border-color: #047857;
 }
 
 /* Primary Button */
 .primary-btn {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
     border: none;
     border-radius: 8px;
     color: white;
@@ -188,14 +185,14 @@ body {
 
 .primary-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
 }
 
 .secondary-btn {
     width: 100%;
     padding: 1rem;
     background: var(--bg-accent);
-    border: 2px solid #667eea;
+    border: 2px solid #059669;
     border-radius: 8px;
     color: var(--text-primary);
     font-size: 1.2rem;
@@ -279,8 +276,8 @@ body {
 }
 
 .player-score.active {
-    border-color: #ffd700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    border-color: #10b981;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
 }
 
 .player-score.hidden {
@@ -322,7 +319,7 @@ body {
 .score-value {
     font-size: 2rem;
     font-weight: 700;
-    color: #ffd700;
+    color: #10b981;
     margin: 0.25rem 0;
 }
 
@@ -335,7 +332,7 @@ body {
 
 .player-score.active .turn-indicator {
     opacity: 1;
-    color: #ffd700;
+    color: #10b981;
 }
 
 /* Board Wrapper */
@@ -367,7 +364,7 @@ body {
 }
 
 .board-cell:hover {
-    background: #3a6b1f;
+    background: #0f854a;
 }
 
 .board-cell.valid-move {
@@ -378,25 +375,14 @@ body {
 .board-cell.valid-move::after {
     content: '';
     position: absolute;
-    width: 30%;
-    height: 30%;
-    background: rgba(255, 215, 0, 0.6);
+    width: 25%;
+    height: 25%;
+    background: rgba(180, 180, 180, 0.5);
+    border: 2px solid rgba(200, 200, 200, 0.8);
     border-radius: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 0.6;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1.2);
-    }
 }
 
 /* Disc */
@@ -419,12 +405,11 @@ body {
 
 @keyframes placeDisc {
     0% {
-        transform: translate(-50%, -50%) scale(0);
-    }
-    60% {
-        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
     }
     100% {
+        opacity: 1;
         transform: translate(-50%, -50%) scale(1);
     }
 }
@@ -490,7 +475,7 @@ body {
 #winner-announcement {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #ffd700;
+    color: #10b981;
     margin-bottom: 1.5rem;
 }
 
