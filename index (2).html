@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Reverse Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Setup Screen -->
+    <div id="setup-screen" class="screen active">
+        <div class="setup-container">
+            <h1>🎮 Advanced Reverse Game</h1>
+            
+            <div class="setup-section">
+                <h2>Select Player Mode</h2>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="player-mode" value="2" checked>
+                        <span class="radio-custom"></span>
+                        <span class="radio-text">2 Players</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="player-mode" value="3">
+                        <span class="radio-custom"></span>
+                        <span class="radio-text">3 Players</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setup-section">
+                <h2>Select Board Size</h2>
+                <div class="board-size-buttons">
+                    <button class="size-btn" data-size="6">6×6</button>
+                    <button class="size-btn active" data-size="8">8×8</button>
+                    <button class="size-btn" data-size="10">10×10</button>
+                    <button class="size-btn" data-size="12">12×12</button>
+                </div>
+            </div>
+
+            <button id="start-game-btn" class="primary-btn">Start Game</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-container">
+            <!-- Header -->
+            <div class="game-header">
+                <h1>🎮 Reverse Game</h1>
+                <div class="controls">
+                    <button id="restart-btn" class="control-btn">🔄 Restart</button>
+                    <button id="back-to-setup-btn" class="control-btn">⚙️ Setup</button>
+                </div>
+            </div>
+
+            <!-- Main Game Area -->
+            <div class="game-content">
+                <!-- Score Panel -->
+                <div class="score-panel">
+                    <div class="player-score" data-player="1">
+                        <div class="player-header">
+                            <div class="disc-preview disc-black"></div>
+                            <span class="player-name">Player 1</span>
+                        </div>
+                        <div class="score-value" id="score-1">2</div>
+                        <div class="turn-indicator" id="turn-1">Current Turn</div>
+                    </div>
+
+                    <div class="player-score" data-player="2">
+                        <div class="player-header">
+                            <div class="disc-preview disc-white"></div>
+                            <span class="player-name">Player 2</span>
+                        </div>
+                        <div class="score-value" id="score-2">2</div>
+                        <div class="turn-indicator" id="turn-2">Waiting</div>
+                    </div>
+
+                    <div class="player-score hidden" data-player="3">
+                        <div class="player-header">
+                            <div class="disc-preview disc-red"></div>
+                            <span class="player-name">Player 3</span>
+                        </div>
+                        <div class="score-value" id="score-3">0</div>
+                        <div class="turn-indicator" id="turn-3">Waiting</div>
+                    </div>
+                </div>
+
+                <!-- Game Board -->
+                <div class="board-wrapper">
+                    <div id="game-board" class="game-board"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Game Modal -->
+    <div id="end-game-modal" class="modal">
+        <div class="modal-content">
+            <h2>🏆 Game Over!</h2>
+            <div id="winner-announcement"></div>
+            <div id="final-scores"></div>
+            <div class="modal-buttons">
+                <button id="modal-restart-btn" class="primary-btn">Play Again</button>
+                <button id="modal-setup-btn" class="secondary-btn">Back to Setup</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
