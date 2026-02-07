@@ -296,19 +296,19 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .disc-black {
-    background: radial-gradient(circle at 30% 30%, #444, var(--disc-black));
+    background: #1a1a1a;
 }
 
 .disc-white {
-    background: radial-gradient(circle at 30% 30%, #fff, var(--disc-white));
+    background: #f0f0f0;
 }
 
 .disc-red {
-    background: radial-gradient(circle at 30% 30%, #ff6b6b, var(--disc-red));
+    background: #dc3545;
 }
 
 .player-name {
@@ -394,35 +394,43 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    animation: placeDisc 0.4s ease;
-    transform-style: preserve-3d;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.disc.disc-black {
+    background: #1a1a1a;
+}
+
+.disc.disc-white {
+    background: #f0f0f0;
+}
+
+.disc.disc-red {
+    background: #dc3545;
 }
 
 .disc.flipping {
-    animation: flipDisc 0.6s ease;
+    animation: flipDisc 0.3s ease;
 }
 
 @keyframes placeDisc {
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.8);
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
     }
 }
 
 @keyframes flipDisc {
     0% {
-        transform: translate(-50%, -50%) rotateY(0deg);
+        transform: translate(-50%, -50%) scaleX(1);
     }
     50% {
-        transform: translate(-50%, -50%) rotateY(90deg);
+        transform: translate(-50%, -50%) scaleX(0);
     }
     100% {
-        transform: translate(-50%, -50%) rotateY(180deg);
+        transform: translate(-50%, -50%) scaleX(1);
     }
 }
 
